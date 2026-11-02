@@ -1,0 +1,74 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "A user of the application",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 100 }
+      }
+    },
+    "Client": {
+      "title": "Client",
+      "description": "A customer of the user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "address": { "type": "string", "maxLength": 200 }
+      },
+      "required": ["id", "name"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "A sales invoice for a client",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "clientId": { "type": "string", "maxLength": 50 },
+        "date": { "type": "string", "maxLength": 30 },
+        "currency": { "type": "string", "maxLength": 5, "enum": ["TRY", "USD", "EUR", "SAR"] },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "total": { "type": "number" },
+        "notes": { "type": "string", "maxLength": 500 }
+      },
+      "required": ["id", "clientId", "date", "currency", "total"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "A financial transaction (invoice, payment, old debt) for a client",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "clientId": { "type": "string", "maxLength": 50 },
+        "type": { "type": "string", "enum": ["invoice", "payment", "old_debt"] },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 5, "enum": ["TRY", "USD", "EUR", "SAR"] },
+        "date": { "type": "string", "maxLength": 30 },
+        "description": { "type": "string", "maxLength": 200 },
+        "referenceId": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "clientId", "type", "amount", "currency", "date"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile data"
+    },
+    "users/{userId}/clients/{clientId}": {
+      "schema": { "$ref": "#/entities/Client" },
+      "description": "Clients belonging to a user"
+    },
+    "users/{userId}/invoices/{invoiceId}": {
+      "schema": { "$ref": "#/entities/Invoice" },
+      "description": "Invoices belonging to a user"
+    },
+    "users/{userId}/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "Transactions belonging to a user"
+    }
+  }
+}

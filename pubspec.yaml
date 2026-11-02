@@ -1,0 +1,37 @@
+name: slim_app
+description: "A new Flutter project for SLM invoices, shipping labels, and customer management."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  pdf: ^3.10.8
+  printing: ^5.13.1
+  mobile_scanner: ^5.2.3
+  url_launcher: ^6.3.0
+  permission_handler: ^11.3.1
+  shared_preferences: ^2.3.2
+  image_picker: ^1.1.2
+  path_provider: ^2.1.4
+
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 700
